@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <title>Main page</title>
+
 </h:head>
-
+<h:outputScript library="css" name="bootstrap.css" />
 <h:body>
-    <label>#{mainPageBean.text}</label>
-</h:body>
+    <h:form id="form">
+        <f:websocket channel="tariffsChannel">
+            <p:ajax event="updateTariffs" update="tariffs"/>
+        </f:websocket>
 
-</html>
+        <p:dataGrid var="tariff" value="#{tariffBean.tariffs}" columns="3" layout="grid"
+                    rows="3" id="tariffs">
+
+                <f:facet name="header" style="text-align:center; alignment: center;">
+                    Try new Tariffs now!
+                </f:facet>
+
+                <p:panel header="#{tariff.name}" style="text-align:center; alignment: center;">
+                    <h:panelGrid columns="1">
+                        <h:outputText value="Tariff short description: #{tariff.shortDiscription}" />
+                        <h:outputText value="Tariff price: #{tariff.price}" />
+                    </h:panelGrid>
+                </p:panel>
+
+        </p:dataGrid>
+
+
+
+        </h:form>
+
+    </h:body>
+    </html>
