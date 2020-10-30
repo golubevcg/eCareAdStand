@@ -14,9 +14,9 @@ import javax.jms.TextMessage;
 import java.io.IOException;
 import java.util.Set;
 
-@MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-        @ActivationConfigProperty(propertyName="destination", propertyValue="java:/jms/topic/message_topic"),
+@MessageDriven(name = "test", activationConfig = {
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+        @ActivationConfigProperty(propertyName="destination", propertyValue="jms/quene/test"),
         @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")})
 public class MessageDrivenBean implements MessageListener {
 
@@ -33,11 +33,19 @@ public class MessageDrivenBean implements MessageListener {
                 String tariffsAsJson = msg.getText();
                 Set<TariffDTO> tariffs = objectMapper.readValue(tariffsAsJson, new TypeReference<Set<TariffDTO>>(){});
                 tariffService.updateTariffs(tariffs);
+
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+                System.out.println("MESSAGE RECIEVED THANKS GOD!!!!");
+                System.out.println(tariffsAsJson);
+                System.out.println("TARIFFS SIZE " + tariffs.size());
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+
             } else {
             }
         } catch (JMSException e) {
             throw new RuntimeException(e);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }

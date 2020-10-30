@@ -24,7 +24,7 @@ public class TariffWebService {
     public void init() {
         tariffsList = new ArrayList<>();
 
-        String restUrl = "http://localhost:8080/adPage/getAdTariffs/main";
+        String restUrl = "http://localhost:9090/adPage/getAdTariffs/main";
 
         try {
             Document data = Jsoup.connect(restUrl).ignoreContentType(true).get();
@@ -38,9 +38,14 @@ public class TariffWebService {
     }
 
     public void updateTariffs(Set<TariffDTO> tariffs) {
-        tariffsList.clear();
-        tariffsList.addAll(tariffs);
+        tariffsList = new ArrayList<>(tariffs);
         tariffBean.update();
+        System.out.println("TARIFFBEAN SENDED AS BEEN UPDATED!!!!!!!!!!!");
+        System.out.println("-------------------------");
+        for (int i = 0; i < tariffsList.size(); i++) {
+            System.out.println(tariffsList.get(i).getName());
+        }
+        System.out.println("-------------------------");
     }
 
     public List<TariffDTO> findAll() {

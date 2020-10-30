@@ -17,8 +17,7 @@ public class TariffBean implements Serializable {
     @EJB
     private TariffWebService tariffService;
 
-    @Inject
-    @Push(channel = "tariffsChannel")
+    @Inject @Push(channel = "tariffsChannel")
     PushContext tariffsChannel;
 
     private List<TariffDTO> tariffs;
@@ -33,6 +32,7 @@ public class TariffBean implements Serializable {
 
     public void update() {
         tariffsChannel.send("updateTariffs");
+        System.out.println("AJAX WAS TRIGGERED THERE");
     }
 
     @PostConstruct

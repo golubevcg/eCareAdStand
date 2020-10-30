@@ -5,34 +5,69 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 
 </h:head>
-<h:outputScript library="css" name="bootstrap.css" />
+<!--<h:outputScript library="css" name="bootstrap.css" />-->
 <h:body>
     <h:form id="form">
+
         <f:websocket channel="tariffsChannel">
-            <p:ajax event="updateTariffs" update="tariffs"/>
+            <p:ajax event="updateTariffs" update="tariffsToUpdate"/>
         </f:websocket>
 
-        <p:dataGrid var="tariff" value="#{tariffBean.tariffs}" columns="3" layout="grid"
-                    rows="3" id="tariffs">
+<!--        <p:dataGrid var="tariff" value="#{tariffBean.tariffs}" columns="3" layout="grid"-->
+<!--                    rows="3" id="tariffs">-->
 
-                <f:facet name="header" style="text-align:center; alignment: center;">
-                    Try new Tariffs now!
-                </f:facet>
+<!--                <f:facet name="header" style="text-align:center; alignment: center;">-->
+<!--                    Try new Tariffs now!-->
+<!--                </f:facet>-->
 
-                <p:panel header="#{tariff.name}" style="text-align:center; alignment: center;">
-                    <h:panelGrid columns="1">
-                        <h:outputText value="Tariff short description: #{tariff.shortDiscription}" />
-                        <h:outputText value="Tariff price: #{tariff.price}" />
-                    </h:panelGrid>
-                </p:panel>
+<!--                <p:panel header="#{tariff.name}" style="text-align:center; alignment: center;">-->
+<!--                    <h:panelGrid columns="1">-->
+<!--                        <h:outputText value="Tariff short description: #{tariff.shortDiscription}" />-->
+<!--                        <h:outputText value="Tariff price: #{tariff.price}" />-->
+<!--                    </h:panelGrid>-->
+<!--                </p:panel>-->
+
+<!--        </p:dataGrid>-->
+
+        <p:dataGrid var="tariff" value="#{tariffBean.tariffs}" columns="1" layout="grid"
+                    rows="6" paginator="true" id="tariffsToUpdate"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="3,6">
+
+            <f:facet name="header">
+                Most Popular Tariffs
+            </f:facet>
+
+            <p:panel header="#{tariff.name}" style="text-align:center">
+                <h:panelGrid columns="1" style="width:100%">
+
+                    <h:outputText value="Tariff price: #{tariff.price}" />
+                    <h:outputText value="Available options for this tariff: " />
+
+                    <p:dataTable value="#{tariff.setOfOptions}" var="option">
+
+                        <p:column headerText="Name">
+                            <h:outputText value="#{option.name}"/>
+                        </p:column>
+
+                        <p:column headerText="Price">
+                            <h:outputText value="#{option.price}"/>
+                        </p:column>
+
+                        <p:column headerText="Connection cost">
+                            <h:outputText value="#{option.connectionCost}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGrid>
+            </p:panel>
 
         </p:dataGrid>
-
 
 
         </h:form>

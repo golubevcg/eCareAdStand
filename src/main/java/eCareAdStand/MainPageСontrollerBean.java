@@ -14,4 +14,5 @@ public class MainPageСontrollerBean  implements Serializable {
     public String tariffsPage() throws IOException {
         return "main";
     }
+
 }
