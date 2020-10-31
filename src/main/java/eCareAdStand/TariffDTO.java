@@ -39,7 +39,6 @@ public class TariffDTO implements Comparable{
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", shortDiscription='" + shortDiscription + '\'' +
-//                ", isActive=" + isActive +
                 ", setOfOptions=" + setOfOptions +
                 '}';
     }

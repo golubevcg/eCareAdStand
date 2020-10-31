@@ -33,13 +33,6 @@ public class MessageDrivenBean implements MessageListener {
                 String tariffsAsJson = msg.getText();
                 Set<TariffDTO> tariffs = objectMapper.readValue(tariffsAsJson, new TypeReference<Set<TariffDTO>>(){});
                 tariffService.updateTariffs(tariffs);
-
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
-                System.out.println("MESSAGE RECIEVED THANKS GOD!!!!");
-                System.out.println(tariffsAsJson);
-                System.out.println("TARIFFS SIZE " + tariffs.size());
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
-
             } else {
             }
         } catch (JMSException e) {

@@ -3,6 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <display-name>eCareBoard</display-name>
+
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
 
     <welcome-file-list>
         <welcome-file>main.xhtml</welcome-file>
@@ -33,9 +39,16 @@
         <param-value>true</param-value>
     </context-param>
     <context-param>
+        <param-name>javax.faces.WEBSOCKET_ENDPOINT_PORT</param-name>
+        <param-value>8081</param-value>
+    </context-param>
+    <context-param>
         <param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
         <param-value>true</param-value>
     </context-param>
-
+<!--    <context-param>-->
+<!--        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>-->
+<!--        <param-value>client</param-value>-->
+<!--    </context-param>-->
 
 </web-app>
