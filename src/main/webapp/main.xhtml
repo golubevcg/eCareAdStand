@@ -6,33 +6,44 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
 <h:head>
-
+<!--    <h:outputStylesheet library = "css" name = "mainStyles.css" />-->
 </h:head>
 <!--<h:body>-->
+
+<script type="javascript">
+    $('#target').puisticky();
+</script>
 
     <h:form>
         <f:websocket channel="push">
             <p:ajax event="updateTariffs" update="tariffsToUpdate"/>
         </f:websocket>
 
+        <div id="target" style="background-color:black;">
+            <h:outputText value="eCare" style="color:white; text-align:center;"/>
+        </div>
+
+        <div class="ui-g" id="pageGrid">
+            <div class="ui-g-3"></div>
+            <div class="ui-g-6" id="pageColumn">
+
                 <p:dataGrid var="tariff" value="#{tariffBean.tariffs}" columns="1" layout="grid"
-                            rows="6" paginator="true" id="tariffsToUpdate"
-                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                            rowsPerPageTemplate="3,6">
+                            rows="6" id="tariffsToUpdate">
 
-                    <f:facet name="header">
-                        Most Popular Tariffs
-                    </f:facet>
-
-                    <p:panel header="#{tariff.name}" style="text-align:center">
+                    <p:panel header="#{tariff.name}" style="text-align:center; width:100%;">
                         <h:panelGrid columns="1" style="width:100%">
 
+                            <h:outputText value="#{tariff.shortDiscription}" />
                             <h:outputText value="Tariff price: #{tariff.price}" />
-                            <h:outputText value="Available options for this tariff: " />
+
+                            <hr></hr>
 
                             <p:dataTable value="#{tariff.setOfOptions}" var="option">
+
+                                <f:facet name="header">
+                                    Available options:
+                                </f:facet>
 
                                 <p:column headerText="Name">
                                     <h:outputText value="#{option.name}"/>
@@ -47,10 +58,16 @@
                                 </p:column>
 
                             </p:dataTable>
+
                         </h:panelGrid>
                     </p:panel>
 
                 </p:dataGrid>
+
+            </div>
+            <div class="ui-g-3"></div>
+        </div>
+
     </h:form>
 
     </html>

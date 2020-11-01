@@ -20,29 +20,32 @@ public class TariffWebService {
     @Inject
     private TariffBean tariffBean;
 
+    private final String restUrl = "http://localhost:9090/getAdTariffs/main";
+
     @PostConstruct
     public void init() {
-        tariffsList = new ArrayList<>();
+        receiveValuesFromECareAndUpdate();
+    }
 
-        String restUrl = "http://localhost:9090/getAdTariffs/main";
-
+    public void receiveValuesFromECareAndUpdate(){
         try {
             Document data = Jsoup.connect(restUrl).ignoreContentType(true).get();
             String jsonTariffArray = data.select("body").text();
             ObjectMapper objectMapper = new ObjectMapper();
             Set<TariffDTO> tariffs = objectMapper.readValue(jsonTariffArray, new TypeReference<Set<TariffDTO>>(){});
-            tariffsList.addAll(tariffs);
+            tariffsList = new ArrayList<>(tariffs);
+            for (TariffDTO tariffdto: tariffs){System.out.println(tariffdto.getName());}
+
         } catch (Exception ecx) {
             ecx.printStackTrace();
         }
     }
 
-    public void updateTariffs(Set<TariffDTO> tariffs) {
-        tariffsList = new ArrayList<>(tariffs);
+    public void update(){
         tariffBean.update();
     }
 
-    public List<TariffDTO> findAll() {
+    public List<TariffDTO> getTariffs() {
         return tariffsList;
     }
 }

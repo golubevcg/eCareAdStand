@@ -23,7 +23,7 @@ public class TariffBean implements Serializable {
     private List<TariffDTO> tariffs;
 
     public List<TariffDTO> getTariffs() {
-        return tariffService.findAll();
+        return tariffService.getTariffs();
     }
 
     public void setTariffs(List<TariffDTO> tariffs) {
@@ -31,12 +31,12 @@ public class TariffBean implements Serializable {
     }
 
     public void update() {
+        tariffs = tariffService.getTariffs();
         push.send("updateTariffs");
-        System.out.println("We came for tariff updates!");
     }
 
     @PostConstruct
     public void init() {
-        tariffs = tariffService.findAll();
+        tariffs = tariffService.getTariffs();
     }
 }
