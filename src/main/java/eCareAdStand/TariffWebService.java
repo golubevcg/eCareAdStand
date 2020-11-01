@@ -34,8 +34,6 @@ public class TariffWebService {
             ObjectMapper objectMapper = new ObjectMapper();
             Set<TariffDTO> tariffs = objectMapper.readValue(jsonTariffArray, new TypeReference<Set<TariffDTO>>(){});
             tariffsList = new ArrayList<>(tariffs);
-            for (TariffDTO tariffdto: tariffs){System.out.println(tariffdto.getName());}
-
         } catch (Exception ecx) {
             ecx.printStackTrace();
         }

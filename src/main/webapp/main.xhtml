@@ -7,22 +7,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-<!--    <h:outputStylesheet library = "css" name = "mainStyles.css" />-->
+    <h:outputStylesheet library="css" name="mainStyles.css"/>
 </h:head>
-<!--<h:body>-->
-
-<script type="javascript">
-    $('#target').puisticky();
-</script>
 
     <h:form>
         <f:websocket channel="push">
             <p:ajax event="updateTariffs" update="tariffsToUpdate"/>
         </f:websocket>
-
-        <div id="target" style="background-color:black;">
-            <h:outputText value="eCare" style="color:white; text-align:center;"/>
-        </div>
 
         <div class="ui-g" id="pageGrid">
             <div class="ui-g-3"></div>
@@ -31,17 +22,20 @@
                 <p:dataGrid var="tariff" value="#{tariffBean.tariffs}" columns="1" layout="grid"
                             rows="6" id="tariffsToUpdate">
 
-                    <p:panel header="#{tariff.name}" style="text-align:center; width:100%;">
-                        <h:panelGrid columns="1" style="width:100%">
+                    <p:panel header="Tariff name: #{tariff.name}" style="text-align:center; width:100%;">
+                        <h:panelGrid columns="1" style="width:100%" id="panelGrid">
 
                             <h:outputText value="#{tariff.shortDiscription}" />
+
+                            <hr></hr>
+
                             <h:outputText value="Tariff price: #{tariff.price}" />
 
                             <hr></hr>
 
-                            <p:dataTable value="#{tariff.setOfOptions}" var="option">
+                            <p:dataTable value="#{tariff.setOfOptions}" var="option" id="datatable">
 
-                                <f:facet name="header">
+                                <f:facet name="header" id="availOptHeader">
                                     Available options:
                                 </f:facet>
 

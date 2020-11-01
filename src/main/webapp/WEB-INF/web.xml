@@ -40,7 +40,7 @@
     </context-param>
     <context-param>
         <param-name>javax.faces.WEBSOCKET_ENDPOINT_PORT</param-name>
-        <param-value>8081</param-value>
+        <param-value>8080</param-value>
     </context-param>
     <context-param>
         <param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
