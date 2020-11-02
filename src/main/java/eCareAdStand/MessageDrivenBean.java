@@ -16,7 +16,6 @@ public class MessageDrivenBean implements MessageListener {
     private TariffWebService tariffService;
 
     public void onMessage(Message rcvMessage) {
-            System.out.println("received update!");
             tariffService.receiveValuesFromECareAndUpdate();
             tariffService.update();
         }
